@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}The District
+{% endblock %}
+
+{% block body %}
+	<div class="row video-container">
+		
+		<!-- barre de recherche -->
+	{# </form>
+
+	<form class="search-form d-flex justify-content-center" id="search-bar">
+		<input type="text" id="search-input" placeholder="Rechercher...">
+		<button class="btn text-light bg-dark" type="submit">
+			<i class="bi bi-search"></i>
+		</button>
+		<!-- <div id="suggestions"></div> -->
+	</form> #}
+
+	 <video class="error-video" controls loop>
+            <source src="{{ asset('img/video/resto.mp4') }}" type="video/mp4">
+            Votre navigateur ne prend pas en charge la lecture de vidéos.
+        </video>
+</div>
+
+<main class="container mt-4">
+	<div class="row">
+		{% for categorie in categories %}
+			<div class="col-md-6 mb-4">
+				  <div class="card" id="images" style="width: 18rem;"> 
+					<img src="{{ asset('img/food/' ~ categorie.image) }}" alt="{{ categorie.libelle }}">
+					<div class="card-body">
+						<h5 class="card-title">{{ categorie.libelle }}</h5>
+					</div>
+				</div>
+			</div>
+			
+			{% if loop.index is even %}
+			</div>
+			<div class="row">
+			{% endif %}
+		{% endfor %}
+	</div>
+</main>{% endblock %}
