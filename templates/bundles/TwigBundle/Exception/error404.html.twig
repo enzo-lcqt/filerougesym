@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        body {
+            background-image: url('{{ asset('img/vegeta.jpg') }}');
+            background-size: cover;
+        }
+
+        .error-card {
+            background-color: beige;
+            padding: 20px;
+            margin: 0 auto; /* Centrer horizontalement */
+            max-width: 400px; /* Largeur maximale de la carte */
+            text-align: center; /* Centrer le texte */
+        }
+
+        .error-card h1 {
+            color: #000; /* Couleur du texte noir */
+        }
+
+        .error-card p {
+            color: #000; /* Couleur du texte noir */
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="error-card">
+        <h1>Erreur {{ status_code }}</h1>
+        <p>Erreur, Vos droit utilisateurs ne vous donne pas acces à cette partie du site, veuillez retourner
+            sur cette page : <a href="{{ path('app_accueil') }}">Accueil</a>.</p>
+    </div>
+{% endblock %}
