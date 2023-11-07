@@ -6,7 +6,12 @@ use App\Repository\CategorieRepository;
 use App\Repository\PlatsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Form\ContactType;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Utilisateur;
+use Symfony\Component\Security\Core\Security;
 
 class DistrictController extends AbstractController
 {
@@ -72,5 +77,56 @@ class DistrictController extends AbstractController
             'plats' => $plats,
         ]);
     }
+
+    #[Route('/contact', name: 'app_contact')]
+    public function contact(Request $request, Security $security, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(ContactType::class);
+        
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            $formData = $form->getData();
+        
+            // Créez un nouvel objet Utilisateur et enregistrez les données du formulaire
+            $utilisateur = new Utilisateur();
+            $utilisateur->setNom($formData['nom']);
+            $utilisateur->setPrenom($formData['prenom']);
+            $utilisateur->setTelephone($formData['telephone']);
+            $utilisateur->setEmail($formData['email']);
+            $utilisateur->setPassword($formData['password']);
+            $utilisateur->setVille($formData['ville']);
+            $utilisateur->setAdresse($formData['adresse']);
+            $utilisateur->setCp($formData['code_postal']);
+            
+            // Utilisez le rôle de l'utilisateur connecté
+            $connectedUser = $security->getUser();
+            $roles = $connectedUser->getRoles();
+            $rolesAsString = implode(',', $roles);
+            $utilisateur->setRoles($rolesAsString);
+            
+            // Utilisez l'EntityManager pour persister et flush l'objet Utilisateur
+            $entityManager->persist($utilisateur);
+            $entityManager->flush();
+        
+            // Redirigez l'utilisateur vers la page de succès après la soumission réussie.
+            return $this->redirectToRoute('app_success');
+        }
+        
+        return $this->render('district/contact.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+    
+    
+    #[Route('/contact/success', name: 'app_success')]
+    public function success(): Response
+    {
+        // Cette action affiche une page de succès après une soumission réussie.
+        return $this->render('district/success.html.twig');
+    }
+    
+
+
 
 }

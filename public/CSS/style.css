@@ -5,6 +5,10 @@
 	font-family: 'Redressed', cursive;
 }
 
+.black-label {
+    color: black;
+}
+
 .custom-carousel-image {
   width: 500px; /* Largeur de l'image de référence pour les nems */
   height: 500px; /* Hauteur de l'image de référence pour les nems */
@@ -139,6 +143,3 @@
   min-height: 100vh;
 }
 
-label {
-  color: #fff;
-}
