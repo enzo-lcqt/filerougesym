@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\CategorieRepository;
+use App\Service\Panier;
 use App\Repository\PlatsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -126,7 +127,19 @@ class DistrictController extends AbstractController
         return $this->render('district/success.html.twig');
     }
     
+#[Route('/panier', name:"app_panier")]
+
+        public function ajouterAuPanier($platId, Panier $panier)
+        {
+            $panier->ajouterPlat($platId);
+    
+            
+            return $this->redirectToRoute('app_panier'); 
+        }
 
 
 
-}
+    }
+
+
+
