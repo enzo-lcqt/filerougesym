@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
+    {# Titre de la page #}
 {% endblock %}
 
 {% block body %}
@@ -21,7 +22,8 @@
                             <p class="content bg-body">
                                 {{ plat.prix }} euros
                             </p>
-                        </div>
+							<a href="{{ path('panier_add_panier', { id: plat.id }) }}" >Ajouter au panier</a>
+                   </div>
                     </div>
                 </div>
                 {% if loop.index is even %}
@@ -31,4 +33,8 @@
             {% endfor %}
         </div>
     </main>
-    {% endblock %}
+
+    {# Ajoutez le lien "Voir le panier" ici #}
+    <a href="{{ path('app_panier') }}">Voir le panier</a>
+</div>
+{% endblock %}

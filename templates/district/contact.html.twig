@@ -4,14 +4,12 @@
 
 {% block body %}
 <div class="container" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 80vh;">
-    <h1>Contactez-nous</h1>
+    <h1>Finaliser votre commande</h1>
     {{ form_start(form) }}
 
     {{ form_row(form.nom) }}
     {{ form_row(form.prenom) }}
     {{ form_row(form.telephone) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.password) }}
     {{ form_row(form.ville) }}
     {{ form_row(form.adresse) }}
     {{ form_row(form.code_postal) }}

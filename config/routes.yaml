@@ -3,3 +3,10 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+ajouter_au_panier:
+    path: /ajouter-au-panier/{platId}/{platImage}/{platPrix}/{platDescription}
+    controller: App\Controller\DistrictController::ajouterAuPanier
+    methods: ['GET','POST']
+app_panier:
+    path: /panier
+    controller: App\Controller\DistrictController::voirPanier

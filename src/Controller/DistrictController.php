@@ -13,6 +13,7 @@ use App\Form\ContactType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Utilisateur;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class DistrictController extends AbstractController
 {
@@ -127,15 +128,6 @@ class DistrictController extends AbstractController
         return $this->render('district/success.html.twig');
     }
     
-#[Route('/panier', name:"app_panier")]
-
-        public function ajouterAuPanier($platId, Panier $panier)
-        {
-            $panier->ajouterPlat($platId);
-    
-            
-            return $this->redirectToRoute('app_panier'); 
-        }
 
 
 
