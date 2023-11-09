@@ -20,7 +20,11 @@
                         <tbody>
                             {% for element in data %}
                                 <tr>
-                                    <td>{{ element.plat.image }}</td>
+                                    <td>{% if element.plat.image %}
+                <img src="{{ asset(element.plat.image) }}" alt="{{ element.plat.libelle }}" style="max-height: 50px;">
+            {% else %}
+                Aucune image disponible
+            {% endif %}</td>
                                     <td>{{ element.plat.prix }}€</td>
                                     <td>{{ element.quantity }}</td>
                                     <td>{{ element.quantity * element.plat.prix }}€</td>
@@ -42,8 +46,12 @@
                                 <td><b>{{ total }}€</b></td>
                                 <td>
                                     <a href="{{ path('panier_empty_panier') }}" class="btn btn-danger">Vider</a>
-                                    <a href="{{ path('app_contact') }}" class="btn btn-success">Finaliser</a>
-
+                                    <a href="{{ path('app_plats') }}" class="btn btn-primary">Plats</a>
+                                    {% if data is not empty %}
+                                        <a href="{{ path('app_contact') }}" class="btn btn-success">Finaliser</a>
+                                    {% else %}
+                                        <button class="btn btn-success" disabled>Finaliser</button>
+                                    {% endif %}
                                 </td>
                             </tr>
                         </tfoot>

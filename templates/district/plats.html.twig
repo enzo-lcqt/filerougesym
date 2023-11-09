@@ -13,7 +13,7 @@
             {% for plat in plats %}
                 <div class="col-md-6 mb-4">
                     <div class="card" id="images" style="width: 18rem;">
-                        <img src="{{ asset('img/food/' ~ plat.image) }}" alt="{{ plat.libelle}}">
+                        <img src="{{ asset(plat.image) }}" alt="{{ plat.libelle}}">
                         <div class="card-body">
                             <h5 class="card-title">{{ plat.libelle }}</h5>
                             <p class="card-text">
@@ -35,6 +35,5 @@
     </main>
 
     {# Ajoutez le lien "Voir le panier" ici #}
-    <a href="{{ path('app_panier') }}">Voir le panier</a>
 </div>
 {% endblock %}
