@@ -20,7 +20,7 @@
 		{% for categorie in categories %}
 			<div class="col-md-6 mb-4">
 				  <div class="card" id="images" style="width: 18rem;"> 
-					<img src="{{ asset('img/food/' ~ categorie.image) }}" alt="{{ categorie.libelle }}">
+					<img src="{{ asset(categorie.image) }}" alt="{{ categorie.libelle }}">
 					<div class="card-body">
 						<h5 class="card-title">{{ categorie.libelle }}</h5>
 					</div>

@@ -51,9 +51,15 @@
                  <li class="nav-item pe-4">
                     <a class="btn btn-order rounded-0 active" href="{{ path('app_panier') }}" style="color: #fff">Passer une commande</a>
                 </li>
-                <li class="nav-item pe-4">
-                    <a class="nav-link active" href="{{ path('app_logout') }}">Déconnexion</a>
-                </li> 
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+							<li class="nav-item pe-4 pt-2">
+								<a class="nav-link nav-link-custom" href="{{ path('app_logout') }}">Déconnexion</a>
+							</li>
+						{% else %}
+							<li class="nav-item pe-4 pt-2">
+								<a class="nav-link nav-link-custom" href="{{ path('app_login') }}" id="monCompteBtn" title="Inscription/Connexion">Connexion</a>
+							</li>
+						{% endif %}
             </ul>
         </div>
     </div>

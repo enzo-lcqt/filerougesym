@@ -1,0 +1,36 @@
+<?php
+
+use App\Repository\PlatsRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Commande;
+
+class CommandeController extends AbstractController
+{
+    #[Route('/nouvelle-commande', name: 'nouvelle_commande')]
+    public function nouvelleCommande(Request $request, PlatsRepository $platsRepository, EntityManagerInterface $entityManager): Response
+    {
+        $panier = []; // Tu dois récupérer les éléments du panier ici
+
+        $montantTotalPanier = 0;
+
+        foreach ($panier as $element) {
+            $plat = $platsRepository->find($element['plat_id']);
+            $montantTotalPanier += $plat->getPrix() * $element['quantity'];
+        }
+
+        $nouvelleCommande = new Commande();
+
+        $nouvelleCommande->setDateCommande(new \DateTime());
+        $nouvelleCommande->setTotal($montantTotalPanier);
+        $nouvelleCommande->setEtat('En attente');
+
+        $entityManager->persist($nouvelleCommande);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('page_succes');
+    }
+}

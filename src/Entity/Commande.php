@@ -15,8 +15,8 @@ class Commande
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $date_commande = null;
+    #[ORM\Column(type: 'datetime')]
+    private ?\DateTime $date_commande = null;
 
     #[ORM\Column(length: 255)]
     private ?string $total = null;
@@ -46,12 +46,12 @@ class Commande
         return $this;
     }
 
-    public function getDateCommande(): ?string
+    public function getDateCommande(): ?\DateTime
     {
         return $this->date_commande;
     }
 
-    public function setDateCommande(string $date_commande): static
+    public function setDateCommande(\DateTime $date_commande): static
     {
         $this->date_commande = $date_commande;
 

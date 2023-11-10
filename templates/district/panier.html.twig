@@ -3,6 +3,7 @@
 {% block title %}Panier{% endblock %}
 
 {% block body %}
+<br><br>
     <main class="container">
         <section class="row">
             <div class="col-12">
@@ -29,8 +30,8 @@
                                     <td>{{ element.quantity }}</td>
                                     <td>{{ element.quantity * element.plat.prix }}€</td>
                                     <td>
-                                        <a href="{{ path('panier_add_panier', { id: element.plat.id }) }}" class="btn btn-success">+</a>
-                                        <a href="{{ path('panier_remove_panier', { id: element.plat.id }) }}" class="btn btn-warning">-</a>
+                                        <a href="{{ path('panier_add_panier', { id: element.plat.id }) }}" class="btn btn-dark">+</a>
+                                        <a href="{{ path('panier_remove_panier', { id: element.plat.id }) }}" class="btn btn-dark">-</a>
                                         <a href="{{ path('panier_delete_panier', { id: element.plat.id }) }}" class="btn btn-danger">Supprimer</a>
                                     </td>
                                 </tr>

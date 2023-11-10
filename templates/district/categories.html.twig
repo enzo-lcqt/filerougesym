@@ -14,7 +14,7 @@
 						<div class="card" style="width: 18rem; background: rgba(255, 255, 255, 0.8);">
 
 							<a href="{{ path('app_plats_categorie', {'categorie_id': categorie.id}) }}">
-								<img class="card-img-top mx-auto" src="{{ asset('img/food/' ~ categorie.image) }}" alt="{{ categorie.libelle }}">
+								<img class="card-img-top mx-auto" src="{{ asset(categorie.image) }}" alt="{{ categorie.libelle }}">
 							</a>
 							<div class="card-body">
 								<h5 class="card-title text-center">{{ categorie.libelle }}</h5>

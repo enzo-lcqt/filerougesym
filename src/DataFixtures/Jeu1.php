@@ -129,19 +129,19 @@ $user2->setRoles("Role_USER");
 $manager->persist($user2);
 
 $comm1 = new Commande();
-$comm1->setDateCommande("6/11/2023");
+$comm1->setDateCommande(new \DateTime("2020-11-30 03:52:43"));
 $comm1->setTotal("10");
 $comm1->setEtat("en cours");
 $manager->persist($comm1);
 
 $comm2 = new Commande();
-$comm2->setDateCommande("7/11/2023");
+$comm2->setDateCommande(new \DateTime("2020-11-30 03:52:43"));
 $comm2->setTotal("20");
 $comm2->setEtat("livré");
 $manager->persist($comm2);
 
 $comm3 = new Commande();
-$comm3->setDateCommande("8/11/2023");
+$comm3->setDateCommande(new \DateTime("2020-11-30 03:52:43"));
 $comm3->setTotal("30");
 $comm3->setEtat("annulée");
 $manager->persist($comm3);
