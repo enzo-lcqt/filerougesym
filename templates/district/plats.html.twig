@@ -11,10 +11,12 @@
     <main class="container">
         <div class="row">
             {% for plat in plats %}
-                <div class="col-md-6 mb-4">
-                    <div class="card" id="images" style="width: 18rem;">
-                        <img src="{{ asset(plat.image) }}" alt="{{ plat.libelle}}">
-                        <div class="card-body">
+                <div class="col-md-4 mb-4">
+                    <div class="card text-center" id="images" style="width: 350px; height: 500px;">
+					<div class="d-flex align-items-center justify-content-center" style="height: 100%;">
+                        <img src="{{ asset(plat.image) }}" alt="{{ plat.libelle}}" width="300" height="200">
+						</div>
+                        <div class="card-body d-flex flex-column"> <!-- Utilisation de flexbox -->
                             <h5 class="card-title">{{ plat.libelle }}</h5>
                             <p class="card-text">
                                 {{ plat.description }}
@@ -22,18 +24,19 @@
                             <p class="content bg-body">
                                 {{ plat.prix }} euros
                             </p>
-							<a href="{{ path('panier_add_panier', { id: plat.id }) }}" >Ajouter au panier</a>
-                   </div>
+                            <div class="mt-auto text-center"> <!-- Centrez le bouton -->
+                                <a class="btn btn-primary" href="{{ path('panier_add_panier', { id: plat.id }) }}">Ajouter au panier</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                {% if loop.index is even %}
-            </div>
-            <div class="row">
-                {% endif %}
-            {% endfor %}
+                {% if loop.index is divisible by 5 %}
         </div>
-    </main>
-
-    {# Ajoutez le lien "Voir le panier" ici #}
+        <div class="row">
+            {% endif %}
+        {% endfor %}
+    </div>
+</main>
+{# Ajoutez le lien "Voir le panier" ici #}
 </div>
 {% endblock %}
