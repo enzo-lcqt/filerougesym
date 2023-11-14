@@ -10,3 +10,18 @@ ajouter_au_panier:
 app_panier:
     path: /panier
     controller: App\Controller\DistrictController::voirPanier
+chef_dashboard:
+    path: '/chef/dashboard'
+    controller: 'App\Controller\ChefController::dashboard'
+    methods: ['GET', 'POST']
+modifier_plat:
+    path: '/chef/modifier/{id}'
+    controller: 'App\Controller\ChefController::modifierPlat'
+    methods: ['GET', 'POST']
+    requirements:
+        id: '\d+'
+supprimer_plat:
+    path: '/chef/supprimer/{id}'
+    controller: 'App\Controller\ChefController::supprimerPlat'
+    requirements:
+        id: '\d+'

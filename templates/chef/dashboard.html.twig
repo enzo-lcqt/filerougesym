@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Tableau de bord du Chef
+{% endblock %}
+
+{% block body %}
+    <br><br><br>
+    <h1>Tableau de bord du Chef</h1>
+
+    {# Ajouter un formulaire pour ajouter un nouveau plat #}
+    {{ form_start(form) }}
+    {{ form_row(form.libelle) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.prix) }}
+    {{ form_row(form.categorie) }}
+    {{ form_row(form.active) }}
+    {{ form_row(form._token) }}
+    <button type="submit">Ajouter un plat</button>
+    {{ form_end(form) }}
+
+    <br><br><br>
+    {# Afficher tous les plats existants #}
+    <h2>Tous les plats</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Libelle</th>
+                <th>Description</th>
+                <th>Prix</th>
+                <th>Categorie</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {# Boucle sur tous les plats pour les afficher dans le tableau #}
+            {% for plat in plats %}
+                <tr>
+                    <td>{{ plat.libelle }}</td>
+                    <td>{{ plat.description }}</td>
+                    <td>{{ plat.prix }} euros</td>
+                    <td>{{ plat.categorie.libelle }}</td>
+                    <td>
+                        <a href="{{ path('modifier_plat', { id: plat.id }) }}">Modifier</a>
+                        <a href="{{ path('supprimer_plat', { id: plat.id }) }}">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br><br><br>
+{% endblock %}

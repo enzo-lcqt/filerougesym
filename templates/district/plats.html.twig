@@ -1,20 +1,29 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {# Titre de la page #}
-{% endblock %}
+plats{% endblock %}
 
 {% block body %}
+<style>
+    .contenu {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('img/banniere5.jpg') }}') center center fixed no-repeat;
+	background-size: cover;
+	min-height: 100vh;
+	background-attachment: fixed;
+    }
+</style>
+
 <div class="contenu">
     <br><br><br><br>
-    <h1 class="fst-italic text-center">Nos Plats</h1>
+    <h1 class="fst-italic text-center text-white">Nos Plats</h1>
     <main class="container">
         <div class="row">
+            {# Boucle pour afficher chaque plat #}
             {% for plat in plats %}
                 <div class="col-md-4 mb-4">
                     <div class="card text-center" id="images" style="width: 350px; height: 500px;">
 					<div class="d-flex align-items-center justify-content-center" style="height: 100%;">
-                        <img src="{{ asset(plat.image) }}" alt="{{ plat.libelle}}" width="300" height="200">
+                        <img src="{{ asset(plat.image) }}" alt="{{ plat.libelle }}" width="300" height="200">
 						</div>
                         <div class="card-body d-flex flex-column"> <!-- Utilisation de flexbox -->
                             <h5 class="card-title">{{ plat.libelle }}</h5>
@@ -30,6 +39,7 @@
                         </div>
                     </div>
                 </div>
+                {# Ajout d'une condition pour créer une nouvelle ligne après chaque 5e élément #}
                 {% if loop.index is divisible by 5 %}
         </div>
         <div class="row">

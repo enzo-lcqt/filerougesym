@@ -40,17 +40,20 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item pe-4">
-                    <a class="nav-link active " aria-current="page" href="{{ path('app_accueil') }}">Accueil</a>
+                    <a class="btn btn-order rounded-0 active " aria-current="page" href="{{ path('app_accueil') }}" style="color: #fff">Accueil</a>
                 </li>
                 <li class="nav-item pe-4">
-                    <a class="nav-link active" href="{{ path('app_categories') }}">Découvrir</a>
+                    <a class="btn btn-order rounded-0 active" href="{{ path('app_categories') }}" style="color: #fff">Découvrir</a>
                 </li>
                 <li class="nav-item pe-4">
-                    <a class="nav-link active" href="{{ path('app_plats') }}">Plats</a>
+                    <a class="btn btn-order rounded-0 active" href="{{ path('app_plats') }}" style="color: #fff">Plats</a>
                 </li>
                  <li class="nav-item pe-4">
                     <a class="btn btn-order rounded-0 active" href="{{ path('app_panier') }}" style="color: #fff">Passer une commande</a>
                 </li>
+               <li class="nav-item pe-4">
+    <a class="btn btn-order rounded-0 {% if is_granted('ROLE_CHEF') %}active{% endif %}" href="{{ path('chef_dashboard') }}" style="color: #fff">Chef</a>
+</li>
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 							<li class="nav-item pe-4 pt-2">
 								<a class="nav-link nav-link-custom" href="{{ path('app_logout') }}">Déconnexion</a>

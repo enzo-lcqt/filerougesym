@@ -1,34 +1,45 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CatalogueController!
+{% block title %}
+    Hello CatalogueController!
 {% endblock %}
 
 {% block body %}
-	<div class="contenu">
-	<br><br><br><br>
-		<h1 class="fst-italic text-center">Notre carte</h1>
-		<main class="container">
-			<div class="row">
-				{% for categorie in categories %}
-					<div class="col-md-6 mb-4 mt-4">
-						<div class="card" style="width: 18rem; background: rgba(255, 255, 255, 0.8);">
+<style>
+    /* Style pour le fond d'écran et l'ajustement */
+    .contenu {
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('img/banniere5.jpg') }}') center center fixed no-repeat;
+        background-size: cover;
+        min-height: 100vh;
+        background-attachment: fixed;
+    }
+</style>
 
-							<a href="{{ path('app_plats_categorie', {'categorie_id': categorie.id}) }}">
-								<img class="card-img-top mx-auto" src="{{ asset(categorie.image) }}" alt="{{ categorie.libelle }}">
-							</a>
-							<div class="card-body">
-								<h5 class="card-title text-center">{{ categorie.libelle }}</h5>
-								{# Vous pouvez ajouter d'autres informations ici si nécessaire #}
-							</div>
-						</div>
-					</div>
-					{# Si vous avez affiché 2 cartes, fermez la rangée actuelle et commencez une nouvelle rangée #}
-					{% if loop.index is even %}
-					</div>
-					<div class="row">
-					{% endif %}
-				{% endfor %}
-			</div>
-		</main>
-	</div>
+<div class="contenu">
+    <br><br><br><br>
+    <h1 class="fst-italic text-center text-white">Notre carte</h1>
+    <main class="container">
+        <div class="row">
+            {# Boucle à travers les catégories pour afficher les cartes #}
+            {% for categorie in categories %}
+                <div class="col-md-6 mb-2 mt-3">
+                    <div class="card" style="width: 15rem; background: rgba(255, 255, 255, 0.8);">
+
+                        {# Lien vers la page de la catégorie avec une image cliquable #}
+                        <a href="{{ path('app_plats_categorie', {'categorie_id': categorie.id}) }}">
+                            <img class="card-img-top mx-auto" src="{{ asset(categorie.image) }}" alt="{{ categorie.libelle }}">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title text-center">{{ categorie.libelle }}</h5>
+                        </div>
+                    </div>
+                </div>
+                {% if loop.index is even %}
+                </div>
+                <div class="row">
+                {% endif %}
+            {% endfor %}
+        </div>
+    </main>
+</div>
 {% endblock %}

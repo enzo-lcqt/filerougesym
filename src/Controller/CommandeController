@@ -13,24 +13,34 @@ class CommandeController extends AbstractController
     #[Route('/nouvelle-commande', name: 'nouvelle_commande')]
     public function nouvelleCommande(Request $request, PlatsRepository $platsRepository, EntityManagerInterface $entityManager): Response
     {
-        $panier = []; // Tu dois récupérer les éléments du panier ici
+        // Tu dois récupérer les éléments du panier ici
+        $panier = []; 
 
+        // Initialise le montant total du panier
         $montantTotalPanier = 0;
 
+        // Parcourt chaque élément du panier
         foreach ($panier as $element) {
+            // Récupère le plat associé à l'élément du panier depuis le repository
             $plat = $platsRepository->find($element['plat_id']);
+
+            // Ajoute le montant du plat multiplié par la quantité à total du panier
             $montantTotalPanier += $plat->getPrix() * $element['quantity'];
         }
 
+        // Crée une nouvelle instance de la classe Commande
         $nouvelleCommande = new Commande();
 
+        // Configure les propriétés de la commande
         $nouvelleCommande->setDateCommande(new \DateTime());
         $nouvelleCommande->setTotal($montantTotalPanier);
         $nouvelleCommande->setEtat('En attente');
 
+        // Persiste la nouvelle commande dans la base de données
         $entityManager->persist($nouvelleCommande);
         $entityManager->flush();
 
+        // Redirige vers la page de succès
         return $this->redirectToRoute('page_succes');
     }
 }

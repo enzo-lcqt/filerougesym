@@ -1,12 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Formulaire envoyé avec succès{% endblock %}
+{% block title %}
+    Formulaire envoyé avec succès
+{% endblock %}
 
 {% block body %}
-<br><br><br><br><br>
-<div class="container">
-    <h1>Formulaire envoyé avec succès</h1>
-    <p>Merci, votre formulaire a bien été envoyé.</p>
-    <a href="{{ path('app_accueil') }}" class="btn btn-primary">Retour à la page d'accueil</a>
-</div>
+    <br><br><br><br><br>
+    <div class="container">
+        <h1>Formulaire envoyé avec succès</h1>
+        <p>Merci, votre formulaire a bien été envoyé.</p>
+        <a href="{{ path('app_accueil') }}" class="btn btn-primary">Retour à la page d'accueil</a>
+    </div>
 {% endblock %}

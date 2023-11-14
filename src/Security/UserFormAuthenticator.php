@@ -25,6 +25,7 @@ class UserFormAuthenticator extends AbstractLoginFormAuthenticator
     {
     }
 
+    // Méthode appelée lors de la tentative d'authentification
     public function authenticate(Request $request): Passport
     {
         $email = $request->request->get('email', '');
@@ -35,21 +36,24 @@ class UserFormAuthenticator extends AbstractLoginFormAuthenticator
             new UserBadge($email),
             new PasswordCredentials($request->request->get('password', '')),
             [
-                new CsrfTokenBadge('authenticate', $request->request->get('_csrf_token')),            ]
+                new CsrfTokenBadge('authenticate', $request->request->get('_csrf_token')),
+            ]
         );
     }
 
+    // Méthode appelée en cas de succès de l'authentification
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        //s'il y a une route dans la session avant login, l'utilisateur sera redirigé vers cette route
+        // S'il y a une route dans la session avant login, l'utilisateur sera redirigé vers cette route
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
 
+        // Redirige l'utilisateur vers la page d'accueil après une authentification réussie
         return new RedirectResponse($this->urlGenerator->generate('app_accueil'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
+    // Méthode pour obtenir l'URL de la page de connexion
     protected function getLoginUrl(Request $request): string
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);

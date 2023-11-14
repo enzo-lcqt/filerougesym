@@ -3,31 +3,42 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<br><br><br><br>
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+    <br><br><br><br>
+    <form method="post">
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
-    {% endif %}
+        {# Affichage des erreurs d'authentification s'il y en a #}
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+        {# Si l'utilisateur est déjà connecté, affichez un message et un lien de déconnexion #}
+        {% if app.user %}
+            <div class="mb-3">
+                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        {% endif %}
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-    <a href="{{ path('app_register') }}">Inscription</a>
-</form>
+        <!-- Champ pour l'adresse email -->
+        <label for="inputEmail">Email</label>
+        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+
+        <!-- Champ pour le mot de passe -->
+        <label for="inputPassword">Password</label>
+        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+        <!-- Champ CSRF pour la sécurité -->
+        <input type="hidden" name="_csrf_token"
+               value="{{ csrf_token('authenticate') }}"
+        >
+
+        <!-- Bouton de soumission du formulaire -->
+        <button class="btn btn-lg btn-primary" type="submit">
+            Sign in
+        </button>
+
+        <!-- Lien vers la page d'inscription -->
+        <a href="{{ path('app_register') }}">Inscription</a>
+    </form>
 {% endblock %}

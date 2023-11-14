@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Modifier Plat
+{% endblock %}
+
+{% block body %}
+    <h1>Modifier Plat</h1>
+
+    {# Afficher le formulaire de modification du plat #}
+    {{ form_start(form) }}
+    {{ form_row(form.libelle) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.prix) }}
+    {{ form_row(form.categorie) }}
+    {{ form_row(form.active) }}
+    {{ form_row(form._token) }}
+
+    <button type="submit">Modifier le plat</button>
+
+    {{ form_end(form) }}
+{% endblock %}

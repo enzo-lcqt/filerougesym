@@ -1,36 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}The District
-{% endblock %}
+{% block title %}The District{% endblock %}
 
 {% block body %}
 <br><br>
 	<div class="row video-container">
 		
-
-
-	 <video class="error-video" controls loop>
+		{# Balise video pour afficher une vidéo en arrière-plan #}
+		<video class="error-video" controls loop>
             <source src="{{ asset('img/video/resto.mp4') }}" type="video/mp4">
             Votre navigateur ne prend pas en charge la lecture de vidéos.
         </video>
-</div>
+	</div>
 
-<main class="container mt-4">
-	<div class="row">
-		{% for categorie in categories %}
-			<div class="col-md-6 mb-4">
-				  <div class="card" id="images" style="width: 18rem;"> 
-					<img src="{{ asset(categorie.image) }}" alt="{{ categorie.libelle }}">
-					<div class="card-body">
-						<h5 class="card-title">{{ categorie.libelle }}</h5>
+	<main class="container mt-4">
+		<div class="row">
+			{# Boucle pour afficher les catégories #}
+			{% for categorie in categories %}
+				<div class="col-md-6 mb-4">
+					<div class="card" id="images" style="width: 18rem;"> 
+						{# Image de la catégorie #}
+						<img src="{{ asset(categorie.image) }}" alt="{{ categorie.libelle }}">
+						<div class="card-body">
+							<h5 class="card-title">{{ categorie.libelle }}</h5>
+						</div>
 					</div>
 				</div>
-			</div>
-			
-			{% if loop.index is even %}
-			</div>
-			<div class="row">
-			{% endif %}
-		{% endfor %}
-	</div>
-</main>{% endblock %}
+				
+				{# Si l'index de la boucle est pair, fermez la ligne actuelle et commencez une nouvelle ligne #}
+				{% if loop.index is even %}
+				</div>
+				<div class="row">
+				{% endif %}
+			{% endfor %}
+		</div>
+	</main>
+{% endblock %}
