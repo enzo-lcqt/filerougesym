@@ -2,7 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Login;
+
+use App\Entity\Utilisateur;
 use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
@@ -28,7 +29,7 @@ class RegistrationController extends AbstractController
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
-        $user = new Login();
+        $user = new Utilisateur();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
@@ -42,7 +43,7 @@ class RegistrationController extends AbstractController
             );
 
             // Ajoute le rôle ROLE_CLIENT à l'utilisateur
-            $user->setRoles(['ROLE_CLIENT']);
+            $user->setRoles(['ROLE_USER']);
 
             $entityManager->persist($user);
             $entityManager->flush();

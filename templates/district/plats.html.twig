@@ -1,52 +1,83 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-plats{% endblock %}
+    {# Titre de la page #}
+{% endblock %}
 
 {% block body %}
-<style>
-    .contenu {
+<div class="contenu">
+    <br><br><br><br>
+    <h1 class="fst-italic text-center text-white">Nos Plats</h1>
+    <br>
+    
+    <main class="container">
+        <style>
+            .clamp-description {
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+            }
+
+            .add-line::after {
+                content: '';
+                display: block;
+                height: 1em; /* Ajustez la hauteur de la ligne vide selon vos besoins */
+            }
+			.contenu {
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('img/banniere5.jpg') }}') center center fixed no-repeat;
 	background-size: cover;
 	min-height: 100vh;
 	background-attachment: fixed;
     }
-</style>
-
-<div class="contenu">
-    <br><br><br><br>
-    <h1 class="fst-italic text-center text-white">Nos Plats</h1>
-    <main class="container">
-        <div class="row">
-            {# Boucle pour afficher chaque plat #}
-            {% for plat in plats %}
-                <div class="col-md-4 mb-4">
-                    <div class="card text-center" id="images" style="width: 350px; height: 500px;">
-					<div class="d-flex align-items-center justify-content-center" style="height: 100%;">
-                        <img src="{{ asset(plat.image) }}" alt="{{ plat.libelle }}" width="300" height="200">
-						</div>
-                        <div class="card-body d-flex flex-column"> <!-- Utilisation de flexbox -->
-                            <h5 class="card-title">{{ plat.libelle }}</h5>
-                            <p class="card-text">
-                                {{ plat.description }}
-                            </p>
-                            <p class="content bg-body">
-                                {{ plat.prix }} euros
-                            </p>
-                            <div class="mt-auto text-center"> <!-- Centrez le bouton -->
+        </style>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                let cardTexts = document.querySelectorAll(".card-text");
+                cardTexts.forEach(function(cardText) {
+                    let computedStyle = window.getComputedStyle(cardText);
+                    let lineHeight = parseInt(computedStyle.lineHeight);
+                    let maxHeight = 2 * lineHeight;
+                    
+                    if (cardText.clientHeight < cardText.scrollHeight || cardText.scrollHeight > maxHeight) {
+                        cardText.classList.add("clamp-description");
+                    } else {
+                        cardText.innerHTML += "<br>"; // Ajoutez une ligne vide aux descriptions courtes
+                    }
+                });
+            });
+        </script>
+        {% set currentCategory = null %}
+        {% for plat in plats %}
+            {% if currentCategory is not same as(plat.categorie.libelle) %}
+                {% if currentCategory is not null %}
+                    </div> {# Fermer la rangée précédente si ce n'est pas la première catégorie #}
+                {% endif %}
+                <h2 class="text-center text-white"><b><u>{{ plat.categorie.libelle }}</u></b></h2>
+                <div class="row">
+            {% endif %}
+            <div class="col-md-4 mb-4">
+                <div class="card" id="images" style="width: 18rem;">
+                    <img src="{{ asset(plat.image) }}" alt="{{ plat.libelle }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+                    <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                        <h5 class="card-title text-center">{{ plat.libelle }}</h5>
+                        <p class="card-text text-center add-line">
+                            {{ plat.description }}
+                        </p>
+                        <p class="content bg-body text-center">
+                            {{ plat.prix }} euros
+                        </p>
+						<div class="mt-auto text-center"> <!-- Centrez le bouton -->
                                 <a class="btn btn-primary" href="{{ path('panier_add_panier', { id: plat.id }) }}">Ajouter au panier</a>
                             </div>
-                        </div>
                     </div>
                 </div>
-                {# Ajout d'une condition pour créer une nouvelle ligne après chaque 5e élément #}
-                {% if loop.index is divisible by 5 %}
-        </div>
-        <div class="row">
-            {% endif %}
+            </div>
+            {% set currentCategory = plat.categorie.libelle %}
         {% endfor %}
-    </div>
-</main>
-{# Ajoutez le lien "Voir le panier" ici #}
+        </div> {# Fermer la dernière rangée #}
+    </main>
+
+    {# Ajoutez le lien "Voir le panier" ici #}
 </div>
 {% endblock %}

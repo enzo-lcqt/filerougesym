@@ -99,13 +99,10 @@ class DistrictController extends AbstractController
             $utilisateur->setPassword($formData['password']);
             $utilisateur->setVille($formData['ville']);
             $utilisateur->setAdresse($formData['adresse']);
-            $utilisateur->setCp($formData['code_postal']);
+            $utilisateur->setCodePostal($formData['code_postal']);
             
             // Utilisez le rôle de l'utilisateur connecté
-            $connectedUser = $security->getUser();
-            $roles = $connectedUser->getRoles();
-            $rolesAsString = implode(',', $roles);
-            $utilisateur->setRoles($rolesAsString);
+           
             
             // Utilisez l'EntityManager pour persister et flush l'objet Utilisateur
             $entityManager->persist($utilisateur);

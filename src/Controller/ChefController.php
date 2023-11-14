@@ -16,8 +16,6 @@ class ChefController extends AbstractController
     #[Route("/chef/dashboard", name: "chef_dashboard")]
     public function dashboard(Request $request, EntityManagerInterface $entityManager): Response
     {
-        // Vérifie si l'utilisateur a le rôle de chef, sinon, refuse l'accès
-        $this->denyAccessUnlessGranted('ROLE_CHEF');
 
         // Récupère tous les plats depuis la base de données
         $plats = $entityManager->getRepository(Plats::class)->findAll();

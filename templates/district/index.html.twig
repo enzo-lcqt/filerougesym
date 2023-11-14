@@ -13,26 +13,53 @@
         </video>
 	</div>
 
-	<main class="container mt-4">
-		<div class="row">
-			{# Boucle pour afficher les catégories #}
-			{% for categorie in categories %}
-				<div class="col-md-6 mb-4">
-					<div class="card" id="images" style="width: 18rem;"> 
-						{# Image de la catégorie #}
-						<img src="{{ asset(categorie.image) }}" alt="{{ categorie.libelle }}">
-						<div class="card-body">
-							<h5 class="card-title">{{ categorie.libelle }}</h5>
+	<div class="row">
+					<div class="card my-5 border-0 rounded-0">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="card-body px-0">
+									<h3 class="card-title">Notre restaurant</h3>
+									<p class="card-text">
+									Découvrez l'art de la gastronomie chez Notre restaurant, où chaque plat est une symphonie de saveurs, une danse de délices et un voyage inoubliable pour vos papilles.<br> 
+									Notre engagement envers la qualité et la créativité culinaires vous garantit une expérience qui éveillera tous vos sens. <br>
+									Venez savourer la magie de la cuisine dans un cadre chaleureux, où l'excellence est notre maître-mot et où chaque repas devient une célébration de la gourmandise et de la convivialité
+									</p>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+									<div class="carousel-inner">
+										<div class="carousel-item active">
+    									<img src="{{ asset('img/Carousel/carousel2.jpg') }}" class="d-block w-100" alt="..." />
+										</div>
+										<div class="carousel-item">
+   										<img src="{{ asset('img/Carousel/carousel1.jpg') }}" class="d-block w-100" alt="..." />
+										</div>
+										<div class="carousel-item">
+    									<img src="{{ asset('img/Carousel/carousel3.jpg') }}" class="d-block w-100" alt="..." />
+										</div>
+									</div>
+									<button
+										class="carousel-control-prev"
+										type="button"
+										data-bs-target="#carouselExampleControls"
+										data-bs-slide="prev"
+									>
+										<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+										<span class="visually-hidden">Previous</span> 	<!-- Crée un bouton pour faire défiler le carrousel vers la gauche -->
+									</button>
+									<button
+										class="carousel-control-next"
+										type="button"
+										data-bs-target="#carouselExampleControls"
+										data-bs-slide="next"
+									>
+										<span class="carousel-control-next-icon" aria-hidden="true"></span>
+										<span class="visually-hidden">Next</span> 	<!-- Crée un bouton pour faire défiler le carrousel vers la droite -->
+									</button>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-				
-				{# Si l'index de la boucle est pair, fermez la ligne actuelle et commencez une nouvelle ligne #}
-				{% if loop.index is even %}
-				</div>
-				<div class="row">
-				{% endif %}
-			{% endfor %}
-		</div>
-	</main>
 {% endblock %}
