@@ -35,29 +35,7 @@
                         </div>
                     </div>
 
-                    <!-- Modal d'ajout au panier -->
-                    <div class="modal fade" id="modal{{ plat.id }}" tabindex="-1">
-                        <div class="modal-dialog modal-dialog-centered modal-sm">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title rounded p-3">Ma commande</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body bg-secondary" aria-describedby="quantité">
-                                    <form action="ajout_au_panier.php" method="post" id="valid" novalidate>
-                                        <div class="dropdown">
-                                            <label for="quantité" class="lead text-white">Combien de {{ plat.libelle}} désirez-vous</label>
-                                            <input type="number" id="quantité" name="quantite" value="1" min="1" max="10">
-                                            <input type="hidden" name="id_plat" value="{{ plat.id }}">
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="submit" class="btn btn-primary">Ajouter</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
 
                     {# Si vous avez affiché 2 cartes, fermez la rangée actuelle et commencez une nouvelle rangée #}
                     {% if loop.index is even %}
@@ -68,4 +46,5 @@
             </div>
         </main>
     </div>
+    
 {% endblock %}

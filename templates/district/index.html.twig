@@ -3,15 +3,15 @@
 {% block title %}The District{% endblock %}
 
 {% block body %}
-<br><br>
+<br><br><br><br>
 	<div class="row video-container">
-		
-		{# Balise video pour afficher une vidéo en arrière-plan #}
-		<video class="error-video" controls loop>
-            <source src="{{ asset('img/video/resto.mp4') }}" type="video/mp4">
-            Votre navigateur ne prend pas en charge la lecture de vidéos.
-        </video>
-	</div>
+    {# Balise video pour afficher une vidéo en arrière-plan #}
+    <video class="error-video" controls loop style="max-width: 50%; height: auto;">
+        <source src="{{ asset('img/video/resto.mp4') }}" type="video/mp4">
+        Votre navigateur ne prend pas en charge la lecture de vidéos.
+    </video>
+</div>
+
 
 	<div class="row">
 					<div class="card my-5 border-0 rounded-0">
