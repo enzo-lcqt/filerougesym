@@ -34,7 +34,6 @@ class DistrictController extends AbstractController
         dump($categories);
 
         return $this->render('district/index.html.twig', [
-            // 'controller_name' => 'CatalogueController'
             'categories' => $categories
 
         ]);
@@ -48,7 +47,6 @@ class DistrictController extends AbstractController
         dump($plats);
 
         return $this->render('district/plats.html.twig', [
-            'controller_name' => 'CatalogueController',
 
             'plats' => $plats
         ]);
@@ -60,7 +58,6 @@ class DistrictController extends AbstractController
         $categories = $this->categorieRepo->findAll();
         dump($categories);
         return $this->render('district/categories.html.twig', [
-            // 'controller_name' => 'CatalogueController',
             'categories' => $categories
         ]);
     }
@@ -74,7 +71,6 @@ class DistrictController extends AbstractController
 
         $plats = $categorie->getPlats();
         return $this->render('district/plats.html.twig', [
-            // 'controller_name' => 'CatalogueController',
             'categories' => $categorie,
             'plats' => $plats,
         ]);

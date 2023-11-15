@@ -43,7 +43,7 @@ class RegistrationController extends AbstractController
             );
 
             // Ajoute le rôle ROLE_CLIENT à l'utilisateur
-            $user->setRoles(['ROLE_USER']);
+            $user->setRoles(['ROLE_CLIENT']);
 
             $entityManager->persist($user);
             $entityManager->flush();
