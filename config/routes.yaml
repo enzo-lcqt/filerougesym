@@ -25,3 +25,7 @@ supprimer_plat:
     controller: 'App\Controller\ChefController::supprimerPlat'
     requirements:
         id: '\d+'
+app_finaliser:
+    path: /finaliser
+    controller: App\Controller\FinaliserController::index
+    methods: [GET, POST]

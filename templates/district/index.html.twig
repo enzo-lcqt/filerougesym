@@ -3,14 +3,36 @@
 {% block title %}The District{% endblock %}
 
 {% block body %}
+ <style>
+            body {
+                background-color: grey;
+            }
+            .card{
+				background-color: white;
+			}
+			h1{
+				color: white;
+			}
+            
+        </style>
 <br><br><br><br>
-	<div class="row video-container">
-    {# Balise video pour afficher une vidéo en arrière-plan #}
-    <video class="error-video" controls loop style="max-width: 50%; height: auto;">
-        <source src="{{ asset('img/video/resto.mp4') }}" type="video/mp4">
-        Votre navigateur ne prend pas en charge la lecture de vidéos.
-    </video>
-</div>
+{% if app.user %}
+<div style="text-align:center"><h1><b><u>Bonjour {{ app.user.prenom }}</u></b></h1></div>
+{% else %}
+<div style="text-align:center"><h1><b><u>Bonjour  Visiteur</u></b></h1></div>
+{% endif %}
+<div class="row d-flex justify-content-center">
+    <!-- Balise video pour afficher une vidéo en arrière-plan -->
+    <div class="col-md-6">
+        <video class="error-video" controls loop style="max-width: 100%; height: auto;">
+            <source src="{{ asset('img/video/resto.mp4') }}" type="video/mp4">
+            Votre navigateur ne prend pas en charge la lecture de vidéos.
+        </video>
+    </div>
+ 
+
+
+
 
 
 	<div class="row">
@@ -18,11 +40,13 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="card-body px-0">
-									<h3 class="card-title">Notre restaurant</h3>
+								<br><br>
+									<h3 class="card-title"><u>Notre restaurant</u></h3>
+									<br><br>
 									<p class="card-text">
-									Découvrez l'art de la gastronomie chez Notre restaurant, où chaque plat est une symphonie de saveurs, une danse de délices et un voyage inoubliable pour vos papilles.<br> 
-									Notre engagement envers la qualité et la créativité culinaires vous garantit une expérience qui éveillera tous vos sens. <br>
-									Venez savourer la magie de la cuisine dans un cadre chaleureux, où l'excellence est notre maître-mot et où chaque repas devient une célébration de la gourmandise et de la convivialité
+									 <p style="font-size: 18px;">Découvrez l'art de la gastronomie chez Notre restaurant, où chaque plat est une symphonie de saveurs, une danse de délices et un voyage inoubliable pour vos papilles.</p> 
+									 <p style="font-size: 18px;">Notre engagement envers la qualité et la créativité culinaires vous garantit une expérience qui éveillera tous vos sens. </p>
+									 <p style="font-size: 18px;">Venez savourer la magie de la cuisine dans un cadre chaleureux, où l'excellence est notre maître-mot et où chaque repas devient une célébration de la gourmandise et de la convivialité</p>
 									</p>
 								</div>
 							</div>

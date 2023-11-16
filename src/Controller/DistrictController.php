@@ -120,9 +120,22 @@ class DistrictController extends AbstractController
         // Cette action affiche une page de succès après une soumission réussie.
         return $this->render('district/success.html.twig');
     }
+
+    #[Route('/mention', name: 'app_mention')]
+    public function mention(): Response
+    {
+        // Cette action affiche une page de succès après une soumission réussie.
+        return $this->render('district/mentions.html.twig');
+    }
     
+    #[Route('/politique', name: 'app_politique')]
+    public function politique(): Response
+    {
+        // Cette action affiche une page de succès après une soumission réussie.
+        return $this->render('district/politique.html.twig');
+    }
 
-
+    
 
     }
 

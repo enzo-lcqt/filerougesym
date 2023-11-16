@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page d'accueil{% endblock %}
+
+{% block body %}
+<br><br><br><br>
+    <h1>Formulaire de Livraison</h1>
+    {{ form_start(deliveryForm) }}
+    {{ form_row(deliveryForm.nom) }}
+    {{ form_row(deliveryForm.prenom) }}
+    {{ form_row(deliveryForm.pays) }}
+    {{ form_row(deliveryForm.ville) }}
+    {{ form_row(deliveryForm.codepostal) }}
+    {{ form_row(deliveryForm.adresse) }}
+    {{ form_end(deliveryForm) }}
+
+    <h1>Formulaire de Facturation</h1>
+    {{ form_start(FinaliserForm) }}
+    {{ form_row(FinaliserForm.nom) }}
+    {{ form_row(FinaliserForm.prenom) }}
+    {{ form_row(FinaliserForm.pays) }}
+    {{ form_row(FinaliserForm.ville) }}
+    {{ form_row(FinaliserForm.codepostal) }}
+    {{ form_row(FinaliserForm.adresse) }}
+    {{ form_end(FinaliserForm) }}
+    <br><br><br><br>
+{% endblock %}

@@ -4,7 +4,7 @@
 
 {% block body %}
 
-<br><br>
+<br><br><br><br>
     <main class="container">
         <section class="row">
             <div class="col-12">
@@ -53,7 +53,7 @@
                                     <a href="{{ path('panier_empty_panier') }}" class="btn btn-danger">Vider</a>
                                     <a href="{{ path('app_plats') }}" class="btn btn-primary">Plats</a>
                                     {% if data is not empty %}
-                                        <a href="{{ path('app_contact') }}" class="btn btn-success">Finaliser</a>
+                                        <a href="{{ path('app_finaliser') }}" class="btn btn-success">Finaliser</a>
                                     {% else %}
                                         <button class="btn btn-success" disabled>Finaliser</button>
                                     {% endif %}
@@ -64,4 +64,5 @@
             </div>
         </section>
     </main>
+    <br><br>
 {% endblock %}
