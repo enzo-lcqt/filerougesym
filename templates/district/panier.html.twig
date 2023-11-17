@@ -6,9 +6,22 @@
 
 <br><br><br><br>
     <main class="container">
+    <style>
+            
+			body {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('img/banniere5.jpg') }}') center center fixed no-repeat;
+	background-size: cover;
+	min-height: 100vh;
+	background-attachment: fixed;
+    .footer {
+        background-color: #fff; /* Couleur de fond blanc */
+        padding: 20px; /* Ajoutez un espacement si nécessaire */
+    }
+    }
+        </style>
         <section class="row">
             <div class="col-12">
-                <h1>Panier</h1>
+                <h1 class="text-white">Panier</h1>
                     <table class="table border border-dark bg-light">
                         <thead>
                             <tr>
@@ -52,10 +65,14 @@
                                     {# Liens pour vider le panier, voir les plats, et finaliser la commande #}
                                     <a href="{{ path('panier_empty_panier') }}" class="btn btn-danger">Vider</a>
                                     <a href="{{ path('app_plats') }}" class="btn btn-primary">Plats</a>
+                                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                                     {% if data is not empty %}
-                                        <a href="{{ path('app_finaliser') }}" class="btn btn-success">Finaliser</a>
+                                    <a href="{{ path('app_finaliser') }}" class="btn btn-success">Finaliser</a>
                                     {% else %}
-                                        <button class="btn btn-success" disabled>Finaliser</button>
+                                    <button class="btn btn-success" disabled>Finaliser</button>
+                                    {% endif %}
+                                    {% else %}
+                                    <p class="text-red">Connectez-vous pour finaliser votre commande.</p>
                                     {% endif %}
                                 </td>
                             </tr>
@@ -65,4 +82,5 @@
         </section>
     </main>
     <br><br>
+
 {% endblock %}

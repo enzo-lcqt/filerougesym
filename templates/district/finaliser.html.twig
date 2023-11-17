@@ -22,6 +22,7 @@
     {{ form_row(FinaliserForm.ville) }}
     {{ form_row(FinaliserForm.codepostal) }}
     {{ form_row(FinaliserForm.adresse) }}
+    {{ form_widget(FinaliserForm.submit, { 'label': 'Finaliser la commande' }) }}
     {{ form_end(FinaliserForm) }}
     <br><br><br><br>
 {% endblock %}

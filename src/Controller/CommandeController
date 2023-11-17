@@ -16,6 +16,8 @@ class CommandeController extends AbstractController
         // Tu dois récupérer les éléments du panier ici
         $panier = []; 
 
+        $dateCommande = new \DateTime();
+
         // Initialise le montant total du panier
         $montantTotalPanier = 0;
 
@@ -32,15 +34,20 @@ class CommandeController extends AbstractController
         $nouvelleCommande = new Commande();
 
         // Configure les propriétés de la commande
-        $nouvelleCommande->setDateCommande(new \DateTime());
+        $nouvelleCommande->setDateCommande($dateCommande);
         $nouvelleCommande->setTotal($montantTotalPanier);
         $nouvelleCommande->setEtat('En attente');
+
+        $utilisateur = $this->getUser();
+        if ($utilisateur) {
+            $nouvelleCommande->setUtilisateur($utilisateur);
+        }
 
         // Persiste la nouvelle commande dans la base de données
         $entityManager->persist($nouvelleCommande);
         $entityManager->flush();
 
         // Redirige vers la page de succès
-        return $this->redirectToRoute('page_succes');
+        return $this->redirectToRoute('app-accueil');
     }
 }

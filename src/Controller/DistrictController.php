@@ -135,7 +135,12 @@ class DistrictController extends AbstractController
         return $this->render('district/politique.html.twig');
     }
 
-    
+    #[Route('/finalisercommande', name: 'app_finalisercommande')]
+    public function finalisercommande(): Response
+    {
+        // Cette action affiche une page de succès après une soumission réussie.
+        return $this->render('district/finalisercommande.html.twig');
+    }
 
     }
 

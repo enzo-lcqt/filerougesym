@@ -5,7 +5,7 @@
 {% block body %}
  <style>
             body {
-                background-color: grey;
+                background-color: black;
             }
             .card{
 				background-color: white;
@@ -13,6 +13,10 @@
 			h1{
 				color: white;
 			}
+			.footer {
+        background-color: #fff; /* Couleur de fond blanc */
+        padding: 20px; /* Ajoutez un espacement si nécessaire */
+    }
             
         </style>
 <br><br><br><br>
@@ -24,7 +28,7 @@
 <div class="row d-flex justify-content-center">
     <!-- Balise video pour afficher une vidéo en arrière-plan -->
     <div class="col-md-6">
-        <video class="error-video" controls loop style="max-width: 100%; height: auto;">
+        <video class="error-video" controls loop muted style="max-width: 100%; height: auto;">
             <source src="{{ asset('img/video/resto.mp4') }}" type="video/mp4">
             Votre navigateur ne prend pas en charge la lecture de vidéos.
         </video>

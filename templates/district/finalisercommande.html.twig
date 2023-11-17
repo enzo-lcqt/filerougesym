@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Commande envoyée avec succès
+{% endblock %}
+
+{% block body %}
+    <br><br><br><br><br>
+    <div class="container">
+        <h1>commannde envoyée avec succès</h1>
+        <p>Merci, votre commande a bien été envoyée.</p>
+        <a href="{{ path('app_accueil') }}" class="btn btn-primary">Retour à la page d'accueil</a>
+    </div>
+    <br><br><br><br>
+{% endblock %}
