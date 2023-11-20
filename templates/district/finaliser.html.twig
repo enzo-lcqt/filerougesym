@@ -22,7 +22,9 @@
     {{ form_row(FinaliserForm.ville) }}
     {{ form_row(FinaliserForm.codepostal) }}
     {{ form_row(FinaliserForm.adresse) }}
+    <a href="{{ path('app_paiement') }}">
     {{ form_widget(FinaliserForm.submit, { 'label': 'Finaliser la commande' }) }}
+    </a>
     {{ form_end(FinaliserForm) }}
     <br><br><br><br>
 {% endblock %}

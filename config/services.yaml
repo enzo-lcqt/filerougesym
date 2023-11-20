@@ -26,4 +26,7 @@ services:
     
     App\Controller\DistrictController: # Ajout du contrôleur DistrictController
         tags: ['controller.service_arguments']
-    
+
+
+
+        

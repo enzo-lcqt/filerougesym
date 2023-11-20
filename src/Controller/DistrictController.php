@@ -142,6 +142,21 @@ class DistrictController extends AbstractController
         return $this->render('district/finalisercommande.html.twig');
     }
 
+    #[Route('/paiement', name: 'app_paiement')]
+    public function paiement(): Response
+    {
+        // Cette action affiche une page de succès après une soumission réussie.
+        return $this->render('district/paiement.html.twig');
+    }
+
+    #[Route('/paiement-process', name: 'app_paiement_process')]
+    public function processPayment(): Response
+    {
+
+        // Redirect to the homepage after processing the payment
+        return $this->redirectToRoute('app_accueil');
+    }
+
     }
 
 
