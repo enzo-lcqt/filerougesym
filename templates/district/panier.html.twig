@@ -67,7 +67,10 @@
                                     <a href="{{ path('app_plats') }}" class="btn btn-primary">Plats</a>
                                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                                     {% if data is not empty %}
-                                    <a href="{{ path('app_finaliser') }}" class="btn btn-success">Finaliser</a>
+                                    {# Stocker le prix total dans la variable de session #}
+                                    {% set app_total = total %}
+                                    {# Débogage du montant total #}
+                                    <a href="{{ path('app_finaliser', { total: total }) }}" class="btn btn-success">Finaliser</a>
                                     {% else %}
                                     <button class="btn btn-success" disabled>Finaliser</button>
                                     {% endif %}

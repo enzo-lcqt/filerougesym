@@ -18,8 +18,8 @@ class Commande
     #[ORM\Column(type: 'datetime')]
     private ?\DateTime $date_commande = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $total = null;
+    #[ORM\Column(type: 'float')]
+    private ?float $total = null;
 
     #[ORM\Column(length: 255)]
     private ?string $etat = null;
@@ -58,12 +58,12 @@ class Commande
         return $this;
     }
 
-    public function getTotal(): ?string
+    public function getTotal(): ?float
     {
         return $this->total;
     }
 
-    public function setTotal(string $total): static
+    public function setTotal(float $total): static
     {
         $this->total = $total;
 

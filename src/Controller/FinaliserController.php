@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,11 +16,36 @@ use App\Entity\Commande;
 #[Route('/finaliser', name: 'app_finaliser')]
 class FinaliserController extends AbstractController
 {
-    
-    public function index(Request $request, PlatsRepository $platsRepository, EntityManagerInterface $entityManager): Response
+    public function index(Request $request, PlatsRepository $platsRepository, EntityManagerInterface $entityManager, SessionInterface $session): Response
     {
         $deliveryForm = $this->createForm(DeliveryFormType::class);
-        $finaliserForm = $this->createForm(FinaliserForm::class);
+        
+        // Récupère les éléments du panier ici
+        $panier = $session->get('panier', []); 
+
+        // Initialise le montant total du panier
+        $montantTotalPanier = $request->get('total', 0);
+
+        // Parcourt chaque élément du panier
+        foreach ($panier as $element) {
+            // Vérifie si la clé 'plat_id' existe dans l'élément du panier
+            if (isset($element['plat_id'])) {
+                // Récupère le plat associé à l'élément du panier depuis le repository
+                $plat = $platsRepository->find($element['plat_id']);
+
+                // Vérifie si le plat existe avant de travailler avec lui
+                if ($plat) {
+                    // Ajoute le montant du plat multiplié par la quantité à total du panier
+                    $montantTotalPanier += $plat->getPrix() * $element['quantity'];
+                }
+            }
+        }
+
+        // Déclaration de débogage pour afficher le montant total
+        dump($request->get('total'));
+
+        // Crée le formulaire de facturation en passant le montant total comme option
+        $finaliserForm = $this->createForm(FinaliserForm::class, null, ['montant_total' => $request->get('total')]);
 
         $deliveryForm->handleRequest($request);
         $finaliserForm->handleRequest($request);
@@ -29,27 +55,12 @@ class FinaliserController extends AbstractController
             // ...
 
             // Redirige vers une autre page
-            return $this->redirectToRoute('district/index.html.twig');
+            return $this->redirectToRoute('district/finalisercommande.html.twig');
         }
 
         if ($finaliserForm->isSubmitted() && $finaliserForm->isValid()) {
             // Logique de traitement pour le formulaire de facturation
             // ...
-
-            // Récupère les éléments du panier ici
-            $panier = []; 
-
-            // Initialise le montant total du panier
-            $montantTotalPanier = 0;
-
-            // Parcourt chaque élément du panier
-            foreach ($panier as $element) {
-                // Récupère le plat associé à l'élément du panier depuis le repository
-                $plat = $platsRepository->find($element['plat_id']);
-
-                // Ajoute le montant du plat multiplié par la quantité à total du panier
-                $montantTotalPanier += $plat->getPrix() * $element['quantity'];
-            }
 
             // Crée une nouvelle instance de la classe Commande
             $nouvelleCommande = new Commande();
@@ -73,5 +84,4 @@ class FinaliserController extends AbstractController
             'FinaliserForm' => $finaliserForm->createView(),
         ]);
     }
-
 }
