@@ -23,8 +23,8 @@ class FinaliserForm extends AbstractType
             ->add('adresse', TextType::class, ['label' => 'Adresse'])
             ->add('total', TextType::class, [
                 'label' => 'Total',
-                'mapped' => false, // Ne pas mapper ce champ à une propriété de l'entité
-                'attr' => ['readonly' => true, 'value' => $options['montant_total']], // Le rendre en lecture seule
+                'mapped' => false, 
+                'attr' => ['readonly' => true, 'value' => $options['montant_total'] . ' €'], 
             ])
             ->add('submit', SubmitType::class, ['label' => 'Valider']);
     }
