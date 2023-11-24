@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Form\ContactType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Utilisateur;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class DistrictController extends AbstractController

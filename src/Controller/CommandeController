@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Commande;
+use App\Entity\Detail;
 
 class CommandeController extends AbstractController
 {
@@ -23,6 +24,9 @@ class CommandeController extends AbstractController
         // Initialise le montant total du panier
         $montantTotalPanier = 0;
 
+        // Crée une nouvelle instance de la classe Commande
+        $nouvelleCommande = new Commande();
+
         // Parcourt chaque élément du panier
         foreach ($panier as $element) {
             // Récupère le plat associé à l'élément du panier depuis le repository
@@ -30,10 +34,18 @@ class CommandeController extends AbstractController
 
             // Ajoute le montant du plat multiplié par la quantité à total du panier
             $montantTotalPanier += $plat->getPrix() * $element['quantity'];
-        }
 
-        // Crée une nouvelle instance de la classe Commande
-        $nouvelleCommande = new Commande();
+            // Crée une nouvelle instance de la classe Detail
+            $detail = new Detail();
+
+            // Configure les propriétés du détail (relation entre Commande et Plats)
+            $detail->setPlats($plat);
+            $detail->setQuantite($element['quantity']);
+
+            // Ajoute le détail à la commande
+            $nouvelleCommande->addDetail($detail);
+            dump('Detail ajouté à la commande dans la boucle');
+        }
 
         // Configure les propriétés de la commande
         $nouvelleCommande->setDateCommande($dateCommande);

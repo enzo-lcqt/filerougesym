@@ -6,6 +6,7 @@
 
 parameters:
     images_directory: '%kernel.project_dir%/public/img/food'
+    confirmation_email: 'enzolocquet@gmail.com'
 
 services:
     # default configuration for services in *this* file
@@ -26,6 +27,14 @@ services:
     
     App\Controller\DistrictController: # Ajout du contrôleur DistrictController
         tags: ['controller.service_arguments']
+    
+    App\EventSubscriber\CommandeSubscriber:
+        arguments:
+            $mailer: '@mailer'
+            $parameterBag: '@parameter_bag'
+        tags:
+            - { name: 'doctrine.event_subscriber', connection: 'default' }
+
 
 
 

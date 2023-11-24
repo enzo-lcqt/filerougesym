@@ -27,12 +27,16 @@ class Commande
     #[ORM\OneToMany(mappedBy: 'commande', targetEntity: Detail::class)]
     private Collection $details;
 
+    #[ORM\OneToMany(mappedBy: 'commande', targetEntity: Plats::class)]
+    private Collection $plats;
+
     #[ORM\ManyToOne(inversedBy: 'commandes')]
     private ?Utilisateur $utilisateur = null;
 
     public function __construct()
     {
         $this->details = new ArrayCollection();
+        $this->plats = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -90,11 +94,42 @@ class Commande
         return $this->details;
     }
 
+    /**
+     * @return Collection<int, Plats>
+     */
+    public function getPlats(): Collection
+    {
+        return $this->plats;
+    }
+
+    public function addPlat(Plats $plat): static
+    {
+        if (!$this->plats->contains($plat)) {
+            $this->plats->add($plat);
+            // $plat->setCommande($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlat(Plats $plat): static
+    {
+        if ($this->plats->removeElement($plat)) {
+            // set the owning side to null (unless already changed)
+            // if ($plat->getCommande() === $this) {
+            //     $plat->setCommande(null);
+            // }
+        }
+
+        return $this;
+    }
+
     public function addDetail(Detail $detail): static
     {
         if (!$this->details->contains($detail)) {
             $this->details->add($detail);
             $detail->setCommande($this);
+            //dump('Detail ajouté à la commande');
         }
 
         return $this;
