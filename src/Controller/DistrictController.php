@@ -157,6 +157,14 @@ class DistrictController extends AbstractController
         return $this->redirectToRoute('app_accueil');
     }
 
+    #[Route('/cgu', name: 'cgu')]
+    public function cgu(): Response
+    {
+
+        // Redirect to the homepage after processing the payment
+        return $this->render('district/cgu.html.twig');
+    }
+
     }
 
 
