@@ -36,7 +36,7 @@ class ChefController extends AbstractController
                 try {
                     // Déplacez le fichier vers le répertoire approprié
                     $imageFile->move(
-                        $this->getParameter('images_directory'), // Utilisez le répertoire approprié ici
+                        $this->getParameter('images_directory'), 
                         $newFilename
                     );
 

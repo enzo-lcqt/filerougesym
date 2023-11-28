@@ -3,10 +3,25 @@
 namespace App\Entity;
 
 use App\Repository\CategorieRepository;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
 
+#[ApiResource(operations: [
+    new Get(),  
+//    new Put(),
+//    new Patch(),
+//    new Delete(),
+    new GetCollection(),
+//    new Post(),
+])]
 #[ORM\Entity(repositoryClass: CategorieRepository::class)]
 class Categorie
 {
