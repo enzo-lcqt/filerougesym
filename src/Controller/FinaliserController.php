@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\FinaliserForm;
 use App\Form\DeliveryFormType;
+use App\Entity\Detail;
 use App\Repository\PlatsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Commande;
@@ -69,10 +70,36 @@ class FinaliserController extends AbstractController
             $nouvelleCommande->setDateCommande(new \DateTime());
             $nouvelleCommande->setTotal($montantTotalPanier);
             $nouvelleCommande->setEtat('En attente');
-            $nouvelleCommande->setUtilisateur($this->getUser()); // Utilisateur actuellement connecté
+            $nouvelleCommande->setUtilisateur($this->getUser()); 
 
             // Persiste la nouvelle commande dans la base de données
             $entityManager->persist($nouvelleCommande);
+
+            foreach ($panier as $element) {
+                // Vérifie si $element est un tableau et a une clé 'plat_id'
+                if (is_array($element) && isset($element['plat_id'])) {
+                    // Récupère le plat associé à l'élément du panier depuis le repository
+                    $plat = $platsRepository->find($element['plat_id']);
+            
+                    // Vérifie si le plat existe avant de travailler avec lui
+                    if ($plat) {
+                        // Crée une nouvelle instance de la classe Detail
+                        $detail = new Detail();
+            
+                        // Configure les propriétés du détail (relation entre Commande et Plats)
+                        $detail->setPlats($plat);
+                        $detail->setQuantite($element['quantity']);
+            
+                        // Ajoute le détail à la commande
+                        $nouvelleCommande->addDetail($detail);
+            
+                        // Persistez le détail
+                        $entityManager->persist($detail);
+                    }
+                }
+            }
+
+        
             $entityManager->flush();
 
             // Redirige vers la page d'accueil

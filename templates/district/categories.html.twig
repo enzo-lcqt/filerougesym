@@ -15,11 +15,21 @@
     }
 </style>
 
+
 <div class="contenu">
     <br><br><br><br>
     <h1 class="fst-italic text-center text-white">Notre carte</h1>
     <main class="container">
         <div class="row">
+
+        
+         {# {{ encore_entry_link_tags('app') }}
+            
+    <div id="react-app"></div>
+    <!-- Autres éléments de votre page -->
+    {{ encore_entry_script_tags('app') }} #}
+
+
             {# Boucle à travers les catégories pour afficher les cartes #}
             {% for categorie in categories %}
                 <div class="col-md-6 mb-2 mt-3">
@@ -44,4 +54,5 @@
 </div>
 
 <br>
+
 {% endblock %}

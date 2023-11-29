@@ -63,7 +63,12 @@ class Detail
         return $this->commande;
     }
 
-    public function setCommande(?Commande $commande): static
+    /**
+     * @param Commande|null $commande
+     * @return $this
+     */
+
+    public function setCommande(?Commande $commande): self
     {
         $this->commande = $commande;
 

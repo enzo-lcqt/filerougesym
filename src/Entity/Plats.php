@@ -47,10 +47,7 @@ class Plats
     #[ORM\ManyToOne(inversedBy: 'plats')]
     #[ORM\JoinColumn(name: 'categorie_id', referencedColumnName: 'id')]
     private ?Categorie $categorie = null;
-
-    #[ORM\ManyToOne(inversedBy: 'plats')]
-    #[ORM\JoinColumn(name: 'commande_id', referencedColumnName: 'id')]
-    private ?Commande $commande = null;
+ 
 
     #[ORM\Column(length: 255)]
     private ?string $active = null;

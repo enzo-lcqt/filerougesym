@@ -32,15 +32,16 @@ const MonPremierComposant = (props) => {
                 <>
                     <div className="row">
                         <div className={'col-12 mt-4'}>
-                            <h1 className={'p-3 text-center'} style={{ color: "#4169E1", fontSize: "2.8em" }}>Catégories</h1>
+                            <h1 className={'p-3 text-center'} style={{ color: "#black", fontSize: "2.8em" }}></h1>
                             <hr />
                         </div>
                     </div>
                     <div className="row">
                         {categories.map((category, index) => (
                             <div className="col-md-4 p-2" key={index}>
-                                <Card style={{ width: '18rem' }}>
-                                    <Card.Img variant="top" src={category.image} />
+                                <Card style={{ width: '19rem', height: '100%'  }}>
+                                <a href={`/plats/${category.id}`} >
+                                    <Card.Img variant="top" src={category.image} /></a>
                                     <Card.Body>
                                         <Card.Title>{category.libelle}</Card.Title>
                                         <Card.Text>

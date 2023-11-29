@@ -44,8 +44,9 @@ class CommandeController extends AbstractController
 
             // Ajoute le détail à la commande
             $nouvelleCommande->addDetail($detail);
-            dump('Detail ajouté à la commande dans la boucle');
+            dump('Detail ajouté à la commande:', $detail->getQuantite(), $detail->getPlats()->getLibelle());
         }
+        
 
         // Configure les propriétés de la commande
         $nouvelleCommande->setDateCommande($dateCommande);
