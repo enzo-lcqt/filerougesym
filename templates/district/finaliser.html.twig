@@ -1,57 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Page d'accueil{% endblock %}
+{% block title %}Page de Finalisation{% endblock %}
 
 {% block body %}
-<div class="container">
-    <br><br><br><br>
-    <div class="row">
-        <div class="col-md-6">
+<br><br><br><br>
+<div class="row">
+    <div class="col-md-4">
+        <div class="col-12" style="background:white">
             <h1>Formulaire de Livraison</h1>
             {{ form_start(deliveryForm) }}
             {{ form_row(deliveryForm.nom) }}
             {{ form_row(deliveryForm.prenom) }}
-            {{ form_row(deliveryForm.pays) }}
             {{ form_row(deliveryForm.ville) }}
             {{ form_row(deliveryForm.codepostal) }}
             {{ form_row(deliveryForm.adresse) }}
-            {{ form_end(deliveryForm) }}
-        </div>
-
-        <div class="col-md-6 offset-md-6">
-            <h1>Formulaire de Paiement</h1>
-            <form id="paymentForm" action="{{ path('app_paiement_process') }}" method="post">
-                <label for="cardNumber">Numéro de carte :</label>
-                <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" required><br>
-
-                <label for="expirationDate">Date d'expiration :</label>
-                <input type="text" id="expirationDate" name="expirationDate" placeholder="MM/YY" required><br>
-
-                <label for="ccv">CCV :</label>
-                <input type="text" id="ccv" name="ccv" placeholder="123" required><br>
-
-            </form>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-md-6">
+    <div class="col-md-4">
+        <div class="col-12">
+            <h1>Formulaire de Paiement</h1>
+            {{ form_start(PaymentForm) }}
+            {{ form_row(PaymentForm.numeroCarte) }}
+            {{ form_row(PaymentForm.ccv) }}
+            {{ form_row(PaymentForm.dateExpiration) }}
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="col-12">
             <h1>Formulaire de Facturation</h1>
             {{ form_start(FinaliserForm) }}
             {{ form_row(FinaliserForm.nom) }}
             {{ form_row(FinaliserForm.prenom) }}
-            {{ form_row(FinaliserForm.pays) }}
             {{ form_row(FinaliserForm.ville) }}
             {{ form_row(FinaliserForm.codepostal) }}
             {{ form_row(FinaliserForm.adresse) }}
-            {{ form_row(FinaliserForm.total) }}
-            <a href="{{ path('cgu') }}" target="_blank">Consulter les CGU</a>
-            {{ form_row(FinaliserForm.cgu) }}
+            {{ form_row(FinaliserForm.total) }} {# Ajout du champ total #}
+            <a href="{{ path ('cgu') }}" target="_blank">Consulter les CGU</a><br>
             {{ form_end(FinaliserForm) }}
         </div>
     </div>
 </div>
-
-
-<br><br>
+<br><br><br>
 {% endblock %}

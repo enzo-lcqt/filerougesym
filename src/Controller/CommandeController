@@ -24,8 +24,6 @@ class CommandeController extends AbstractController
         // Initialise le montant total du panier
         $montantTotalPanier = 0;
 
-        // Crée une nouvelle instance de la classe Commande
-        $nouvelleCommande = new Commande();
 
         // Parcourt chaque élément du panier
         foreach ($panier as $element) {
@@ -34,20 +32,10 @@ class CommandeController extends AbstractController
 
             // Ajoute le montant du plat multiplié par la quantité à total du panier
             $montantTotalPanier += $plat->getPrix() * $element['quantity'];
-
-            // Crée une nouvelle instance de la classe Detail
-            $detail = new Detail();
-
-            // Configure les propriétés du détail (relation entre Commande et Plats)
-            $detail->setPlats($plat);
-            $detail->setQuantite($element['quantity']);
-
-            // Ajoute le détail à la commande
-            $nouvelleCommande->addDetail($detail);
-            dump('Detail ajouté à la commande:', $detail->getQuantite(), $detail->getPlats()->getLibelle());
         }
         
-
+                // Crée une nouvelle instance de la classe Commande
+        $nouvelleCommande = new Commande();
         // Configure les propriétés de la commande
         $nouvelleCommande->setDateCommande($dateCommande);
         $nouvelleCommande->setTotal($montantTotalPanier);
@@ -57,6 +45,7 @@ class CommandeController extends AbstractController
         if ($utilisateur) {
             $nouvelleCommande->setUtilisateur($utilisateur);
         }
+
 
         // Persiste la nouvelle commande dans la base de données
         $entityManager->persist($nouvelleCommande);

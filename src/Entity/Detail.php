@@ -13,8 +13,8 @@ class Detail
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $quantite = null;
+    #[ORM\Column]
+    private ?int $quantite = null;
 
     #[ORM\ManyToOne(inversedBy: 'detail')]
     private ?Plats $plats = null;
@@ -34,12 +34,12 @@ class Detail
         return $this;
     }
 
-    public function getQuantite(): ?string
+    public function getQuantite(): ?int
     {
         return $this->quantite;
     }
 
-    public function setQuantite(string $quantite): static
+    public function setQuantite(int $quantite): static
     {
         $this->quantite = $quantite;
 

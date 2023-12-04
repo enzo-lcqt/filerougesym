@@ -19,7 +19,6 @@ class FinaliserForm extends AbstractType
         $builder
             ->add('nom', TextType::class, ['label' => 'Nom'])
             ->add('prenom', TextType::class, ['label' => 'Prénom'])
-            ->add('pays', CountryType::class, ['label' => 'Pays'])
             ->add('ville', TextType::class, ['label' => 'Ville'])
             ->add('codepostal', IntegerType::class, ['label' => 'Code Postal'])
             ->add('adresse', TextType::class, ['label' => 'Adresse'])
