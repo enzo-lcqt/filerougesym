@@ -26,7 +26,6 @@ class FinaliserController extends AbstractController
         // Récupère les éléments du panier ici
         $panier = $session->get('panier', []); 
 
-        // Initialise le montant total du panier
         $total = 0;
         foreach ($panier as $id => $quantity) {
             $plat = $platsRepository->find($id);
@@ -37,7 +36,7 @@ class FinaliserController extends AbstractController
         $montantTotalPanier = $total; //$request->get('total',0);
 
         // Crée le formulaire de facturation en passant le montant total comme option
-        $finaliserForm = $this->createForm(FinaliserForm::class, null, ['montant_total' => $request->get('total')]);
+        $finaliserForm = $this->createForm(FinaliserForm::class, null, ['montant_total' => $total]);
 
         $deliveryForm->handleRequest($request);
         $finaliserForm->handleRequest($request);
@@ -67,6 +66,7 @@ class FinaliserController extends AbstractController
             $entityManager->persist($nouvelleCommande);
             $entityManager->flush();
 
+            // Crée une instance de la classe Detail pour chaque plat dans le panier
             foreach ($panier as $id => $quantity) {
                 $plat = $platsRepository->find($id);
 
@@ -84,8 +84,7 @@ class FinaliserController extends AbstractController
             $entityManager->flush();
 
             $session->remove('panier');
-            
-            // Redirige vers la page d'accueil
+
             return $this->redirectToRoute('app_accueil');
         }
 

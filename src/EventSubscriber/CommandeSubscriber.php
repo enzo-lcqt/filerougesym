@@ -17,11 +17,13 @@ class CommandeSubscriber implements EventSubscriber
 {
     private $mailer;
     private $parameterBag;
+    private $entityManager;
 
-    public function __construct(MailerInterface $mailer, ParameterBagInterface $parameterBag,)
+    public function __construct(MailerInterface $mailer, ParameterBagInterface $parameterBag, EntityManagerInterface $entityManager)
     {
         $this->mailer = $mailer;
         $this->parameterBag = $parameterBag;
+        $this->entityManager = $entityManager;
     }
 
     public function getSubscribedEvents(): array
@@ -70,10 +72,24 @@ private function buildEmailContent(Commande $commande)
     $content = "Commande confirmée avec succès.\n" . "<br><br>";
     $content .= "Détails de la commande :\n" . "<br><br>";
     $content .= "Date : " . $commande->getDateCommande()->format('Y-m-d H:i:s') . "\n" . "<br><br>";
-    $content .= "Montant total : " . $commande->getTotal() . " EUR\n";
-
+    $content .= "Montant total : " . $commande->getTotal() . " EUR\n" . "<br><br>";
+       
+    $details = $this->entityManager->getRepository(Detail::class)->findBy(['commande' => $commande]);
     
+    var_dump($details);  // Ajoutez cette ligne pour afficher les détails dans les logs Symfony
 
+    $content .= "Plats commandés :\n" . "<br><br>";
+    
+    foreach ($details as $detail) {
+        $plat = $detail->getPlats();
+
+        if ($plat) {
+            $content .= "Nom du plat : " . $plat->getLibelle() . "\n" . "<br>";
+            $content .= "Quantité : " . $detail->getQuantite() . "\n" . "<br>";
+            $content .= "Prix unitaire : " . $plat->getPrix() . " EUR\n" . "<br>";
+            $content .= "Sous-total : " . ($detail->getQuantite() * $plat->getPrix()) . " EUR\n" . "<br><br>";
+        }
+    }
     
 
     return $content;
