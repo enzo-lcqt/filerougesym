@@ -111,4 +111,6 @@ class PanierController extends AbstractController
         //On redirige vers la page du panier
         return $this->redirectToRoute('panier_index');
     }
+
+    
 }

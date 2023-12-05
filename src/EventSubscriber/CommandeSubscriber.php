@@ -10,13 +10,15 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use App\Entity\Plats;
+use App\Entity\Detail;
+use Doctrine\ORM\EntityManagerInterface;
 
 class CommandeSubscriber implements EventSubscriber
 {
     private $mailer;
     private $parameterBag;
 
-    public function __construct(MailerInterface $mailer, ParameterBagInterface $parameterBag)
+    public function __construct(MailerInterface $mailer, ParameterBagInterface $parameterBag,)
     {
         $this->mailer = $mailer;
         $this->parameterBag = $parameterBag;
@@ -54,7 +56,7 @@ class CommandeSubscriber implements EventSubscriber
 
     // Envoie l'e-mail
     $email = (new Email())
-        ->from('noreply@example.com')
+        ->from('enzo@gmail.com')
         ->to($toEmail)
         ->subject('Confirmation de commande')
         ->html($emailContent);
@@ -69,6 +71,8 @@ private function buildEmailContent(Commande $commande)
     $content .= "Détails de la commande :\n" . "<br><br>";
     $content .= "Date : " . $commande->getDateCommande()->format('Y-m-d H:i:s') . "\n" . "<br><br>";
     $content .= "Montant total : " . $commande->getTotal() . " EUR\n";
+
+    
 
     
 

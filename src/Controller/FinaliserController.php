@@ -13,6 +13,7 @@ use App\Form\DeliveryFormType;
 use App\Repository\PlatsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Commande;
+use App\Entity\Detail;
 
 #[Route('/finaliser', name: 'app_finaliser')]
 class FinaliserController extends AbstractController
@@ -26,25 +27,14 @@ class FinaliserController extends AbstractController
         $panier = $session->get('panier', []); 
 
         // Initialise le montant total du panier
-        $montantTotalPanier =$request->get('total', 0);
-
-        // Parcourt chaque élément du panier
-        foreach ($panier as $element) {
-            // Vérifie si la clé 'plat_id' existe dans l'élément du panier
-            if (isset($element['plat_id'])) {
-                // Récupère le plat associé à l'élément du panier depuis le repository
-                $plat = $platsRepository->find($element['plat_id']);
-
-                // Vérifie si le plat existe avant de travailler avec lui
-                if ($plat) {
-                    // Ajoute le montant du plat multiplié par la quantité à total du panier
-                    $montantTotalPanier += $plat->getPrix() * $element['quantity'];
-                }
-            }
+        $total = 0;
+        foreach ($panier as $id => $quantity) {
+            $plat = $platsRepository->find($id);
+            $total += $plat->getPrix() * $quantity;
         }
 
-        // Déclaration de débogage pour afficher le montant total
-        dump($request->get('total'));
+        // Initialise le montant total du panier
+        $montantTotalPanier = $total; //$request->get('total',0);
 
         // Crée le formulaire de facturation en passant le montant total comme option
         $finaliserForm = $this->createForm(FinaliserForm::class, null, ['montant_total' => $request->get('total')]);
@@ -77,6 +67,24 @@ class FinaliserController extends AbstractController
             $entityManager->persist($nouvelleCommande);
             $entityManager->flush();
 
+            foreach ($panier as $id => $quantity) {
+                $plat = $platsRepository->find($id);
+
+                // Crée une nouvelle instance de la classe Detail
+                $detail = new Detail();
+                $detail->setQuantite($quantity);
+                $detail->setPlats($plat);
+                $detail->setCommande($nouvelleCommande);
+
+                // Persiste la nouvelle instance de Detail dans la base de données
+                $entityManager->persist($detail);
+            }
+
+            // Flush pour sauvegarder les détails dans la base de données
+            $entityManager->flush();
+
+            $session->remove('panier');
+            
             // Redirige vers la page d'accueil
             return $this->redirectToRoute('app_accueil');
         }
