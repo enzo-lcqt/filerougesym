@@ -76,14 +76,13 @@ private function buildEmailContent(Commande $commande)
        
     $details = $this->entityManager->getRepository(Detail::class)->findBy(['commande' => $commande]);
     
-    var_dump($details);  // Ajoutez cette ligne pour afficher les détails dans les logs Symfony
 
     $content .= "Plats commandés :\n" . "<br><br>";
     
     foreach ($details as $detail) {
         $plat = $detail->getPlats();
-
         if ($plat) {
+            dump("Plat trouvé : " . $plat->getLibelle());
             $content .= "Nom du plat : " . $plat->getLibelle() . "\n" . "<br>";
             $content .= "Quantité : " . $detail->getQuantite() . "\n" . "<br>";
             $content .= "Prix unitaire : " . $plat->getPrix() . " EUR\n" . "<br>";
